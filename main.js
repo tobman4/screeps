@@ -1,11 +1,11 @@
 //#region Roles
-const roleHarvester = require('role/harvester');
-const roleUpgrader = require('role/upgrader');
-const roleBuilder = require('role/builder');
-//#endregion 
+const roleHarvester = require('Role.harvester');
+const roleUpgrader = require('Role.upgrader');
+const roleBuilder = require('Role.builder');
+//#endregion
 
 //#region Controllers
-const Spawner = require('Contollers/Spawner');
+const Spawner = require('Contollers.Spawner');
 //#endregion
 
 let Roles = {
@@ -15,24 +15,25 @@ let Roles = {
 }
 
 module.exports.loop = function () {
- 
+
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             delete Memory.creeps[name];
             console.log('Clearing non-existing creep memory:', name);
         }
     }
+    //console.log("Spawn: " + spawn_name);
 
-    if(Game.spawns['Spawn1'].spawning) { 
-        var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-        Game.spawns['Spawn1'].room.visual.text(
+    if(Game.spawns['spawn_'].spawning) {
+        var spawningCreep = Game.creeps[Game.spawns['spawn_'].spawning.name];
+        Game.spawns['spawn_'].room.visual.text(
             '🛠️' + spawningCreep.memory.role,
-            Game.spawns['Spawn1'].pos.x + 1, 
-            Game.spawns['Spawn1'].pos.y, 
+            Game.spawns['spawn_'].pos.x + 1,
+            Game.spawns['spawn_'].pos.y,
             {align: 'left', opacity: 0.8});
     }
+    Spawner.spawner();
 
-    Spawner.Spawner();
 
     for(let name in Game.creeps) {
         // TODO: try regex
@@ -42,6 +43,6 @@ module.exports.loop = function () {
         } catch (err) {
             console.error("Failed to find role for creep: " + name);
         }
-               
+
     }
 }
