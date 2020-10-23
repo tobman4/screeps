@@ -36,7 +36,7 @@ module.exports.loop = function () {
 
 
     for(let name in Game.creeps) {
-        // TODO: try regex
+        // TODO: regex -- NO -- use meme
         let creep = Game.creeps[name];
         try {
             Roles[creep.memory.role](creep);
